@@ -17,50 +17,90 @@
       <h1>rodrigoaskey</h1>
     </div>
 
-    <div class="carousel-container">
-      <div class="carousel">
-        <div class="carousel-slide">
-          <img src="img/IMG_9423.JPG" alt="Photo 1" />
+    <!-- Human Carousel -->
+    <section class="carousel-section">
+      <h2 class="carousel-title">human</h2>
+      <div class="carousel-container">
+        <div class="carousel" data-carousel="human">
+          <div class="carousel-slide">
+            <img src="img/IMG_9423.JPG" alt="Human Photo 1" />
+          </div>
+          <div class="carousel-slide">
+            <img src="img/IMG_9577.JPG" alt="Human Photo 2" />
+          </div>
+          <div class="carousel-slide">
+            <img src="img/IMG_4309.jpg" alt="Human Photo 3" />
+          </div>
+          <div class="carousel-slide">
+            <img src="img/IMG_8637.jpg" alt="Human Photo 4" />
+          </div>
         </div>
-        <div class="carousel-slide">
-          <img src="img/IMG_9577.JPG" alt="Photo 2" />
-        </div>
-        <div class="carousel-slide">
-          <img src="img/IMG_4309.jpg" alt="Photo 3" />
-        </div>
-        <div class="carousel-slide">
-          <img src="img/IMG_8637.jpg" alt="Photo 4" />
-        </div>
-        <div class="carousel-slide">
-          <img src="img/IMG_4860.jpg" alt="Photo 5" />
-        </div>
-        <div class="carousel-slide">
-          <img src="img/IMG_9206 2 2.JPG" alt="Photo 6" />
-        </div>
-        <div class="carousel-slide">
-          <img src="img/IMG_9585.JPG" alt="Photo 7" />
-        </div>
-        <div class="carousel-slide">
-          <img src="img/IMG_7187.jpg" alt="Photo 7" />
-        </div>
-        <div class="carousel-slide">
-          <img src="img/IMG_4327 2.JPG" alt="Photo 7" />
-        </div>
-        <div class="carousel-slide">
-          <img src="img/IMG_9063.JPG" alt="Photo 7" />
-        </div>
+        <button class="carousel-button next" onclick="nextSlide('human')">
+          &rsaquo;
+        </button>
       </div>
-      <button class="carousel-button next" onclick="nextSlide()">
-        &rsaquo;
-      </button>
-    </div>
+    </section>
+
+    <!-- Moments Carousel -->
+    <section class="carousel-section">
+      <h2 class="carousel-title">moments</h2>
+      <div class="carousel-container">
+        <div class="carousel" data-carousel="moments">
+          <div class="carousel-slide">
+            <img src="img/IMG_4860.jpg" alt="Moments Photo 1" />
+          </div>
+          <div class="carousel-slide">
+            <img src="img/IMG_9206 2 2.JPG" alt="Moments Photo 2" />
+          </div>
+          <div class="carousel-slide">
+            <img src="img/IMG_9585.JPG" alt="Moments Photo 3" />
+          </div>
+          <div class="carousel-slide">
+            <img src="img/IMG_7187.jpg" alt="Moments Photo 4" />
+          </div>
+        </div>
+        <button class="carousel-button next" onclick="nextSlide('moments')">
+          &rsaquo;
+        </button>
+      </div>
+    </section>
+
+    <!-- Arcadia Carousel -->
+    <section class="carousel-section">
+      <h2 class="carousel-title">Arcadia</h2>
+      <div class="carousel-container">
+        <div class="carousel" data-carousel="arcadia">
+          <div class="carousel-slide">
+            <img src="img/IMG_4327 2.JPG" alt="Arcadia Photo 1" />
+          </div>
+          <div class="carousel-slide">
+            <img src="img/IMG_9063.JPG" alt="Arcadia Photo 2" />
+          </div>
+          <div class="carousel-slide">
+            <img src="img/IMG_9423.JPG" alt="Arcadia Photo 3" />
+          </div>
+          <div class="carousel-slide">
+            <img src="img/IMG_9577.JPG" alt="Arcadia Photo 4" />
+          </div>
+        </div>
+        <button class="carousel-button next" onclick="nextSlide('arcadia')">
+          &rsaquo;
+        </button>
+      </div>
+    </section>
 
     <script>
-      let currentSlide = 0;
-      const slides = document.querySelectorAll(".carousel-slide");
-      const totalSlides = slides.length;
+      // Track current slide for each carousel
+      const carouselStates = {
+        human: 0,
+        moments: 0,
+        arcadia: 0
+      };
 
-      function showSlide(index) {
+      function showSlide(carouselName, index) {
+        const carousel = document.querySelector(`[data-carousel="${carouselName}"]`);
+        const slides = carousel.querySelectorAll(".carousel-slide");
+        
         slides.forEach((slide) => {
           slide.classList.remove("active");
         });
@@ -68,20 +108,51 @@
         slides[index].classList.add("active");
       }
 
-      function nextSlide() {
-        currentSlide = (currentSlide + 1) % totalSlides;
-        showSlide(currentSlide);
+      function nextSlide(carouselName) {
+        const carousel = document.querySelector(`[data-carousel="${carouselName}"]`);
+        const slides = carousel.querySelectorAll(".carousel-slide");
+        const totalSlides = slides.length;
+        
+        carouselStates[carouselName] = (carouselStates[carouselName] + 1) % totalSlides;
+        showSlide(carouselName, carouselStates[carouselName]);
       }
 
-      // Show first slide initially
-      showSlide(0);
+      // Initialize all carousels
+      function initializeCarousels() {
+        Object.keys(carouselStates).forEach(carouselName => {
+          showSlide(carouselName, 0);
+        });
+      }
+
+      // Initialize on page load
+      document.addEventListener('DOMContentLoaded', initializeCarousels);
 
       // Add keyboard navigation
       document.addEventListener("keydown", (e) => {
         if (e.key === "ArrowRight") {
-          nextSlide();
+          // Find the carousel in view and advance it
+          const carousels = document.querySelectorAll('.carousel-container');
+          carousels.forEach(container => {
+            const rect = container.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+              const carousel = container.querySelector('.carousel');
+              const carouselName = carousel.getAttribute('data-carousel');
+              nextSlide(carouselName);
+            }
+          });
         }
       });
     </script>
+  </body>
+</html>
+
+    <footer>
+      <h1>
+        thank you for visiting.<br />
+        Inquiries/collaborations/commissions:<br />
+        ethanaskey@icloud.com<br />
+        #twothreesixfiveonethreefouroneninetwo
+      </h1>
+    </footer>
   </body>
 </html>

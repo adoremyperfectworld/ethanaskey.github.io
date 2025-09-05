@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>ethanaskey</title>
-    <meta name="description" content="Webpage description goes here" />
+    <title>Ethan's Portfolio</title>
+    <meta name="description" content="Ethan Rodrigo Askey - Photographer and UX Designer based in Vancouver, Canada" />
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
+    <meta name="theme-color" content="#000000" />
     <link rel="stylesheet" href="css/styles.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <!-- GSAP CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   </head>
 
   <body>
-    <!-- Logo -->
-    <div class="logo-container">
-      <h1 class="logo"><span>E</span><span>R</span><span>A</span></h1>
-    </div>
+    <!-- Heart Cursor (Desktop only) -->
+    <div class="heart-cursor"></div>
 
     <!-- Hero Section with Image and List -->
     <section class="hero">
@@ -44,105 +43,12 @@
       </p>
     </section>
 
-    <script>
-      // About Me scroll behavior
-      window.addEventListener("scroll", function () {
-        const aboutMe = document.querySelector(".about-me");
-        if (window.scrollY > 0) {
-          aboutMe.classList.add("scroll-show");
-        } else {
-          aboutMe.classList.remove("scroll-show");
-        }
-      });
-
-      // Logo scroll and break behavior
-      document.addEventListener("DOMContentLoaded", () => {
-        const logoContainer = document.querySelector(".logo-container");
-        const logo = document.querySelector(".logo");
-        const firstImage = document.querySelector("#first-image");
-        let isFixed = false;
-        let isBreaking = false;
-        let imageTop;
-        let lastScrollPosition = 0;
-
-        function updateLogoPosition() {
-          if (!imageTop) {
-            imageTop = firstImage.getBoundingClientRect().top + window.scrollY;
-          }
-
-          const scrollPosition = window.scrollY;
-          const viewportHeight = window.innerHeight;
-          const logoHeight = logoContainer.offsetHeight;
-          const scrollingDown = scrollPosition > lastScrollPosition;
-
-          // Calculate the breaking point (slightly before the image top)
-          const breakingPoint = imageTop - logoHeight / 2;
-
-          if (scrollPosition >= breakingPoint && !isBreaking && scrollingDown) {
-            // Trigger breaking animation
-            isBreaking = true;
-            logo.classList.add("breaking");
-
-            // Optional: Remove the logo after breaking animation
-            setTimeout(() => {
-              logoContainer.style.opacity = "0";
-            }, 800);
-          } else if (scrollPosition < breakingPoint && isBreaking) {
-            // Reset breaking state when scrolling back up
-            isBreaking = false;
-            logo.classList.remove("breaking");
-            logoContainer.style.opacity = "1";
-          }
-
-          // Update position only if not breaking
-          if (!isBreaking) {
-            if (scrollPosition + viewportHeight / 2 >= imageTop && !isFixed) {
-              isFixed = true;
-              logoContainer.style.position = "absolute";
-              logoContainer.style.top = `${imageTop}px`;
-              logoContainer.style.transform = "translate(-50%, 0)";
-            } else if (
-              scrollPosition + viewportHeight / 2 < imageTop &&
-              isFixed
-            ) {
-              isFixed = false;
-              logoContainer.style.position = "fixed";
-              logoContainer.style.top = "50%";
-              logoContainer.style.transform = "translate(-50%, -50%)";
-            }
-          }
-
-          lastScrollPosition = scrollPosition;
-        }
-
-        // Initial position check
-        updateLogoPosition();
-
-        // Update on scroll with debounce for smoother animation
-        let scrollTimeout;
-        window.addEventListener("scroll", () => {
-          if (scrollTimeout) {
-            window.cancelAnimationFrame(scrollTimeout);
-          }
-          scrollTimeout = window.requestAnimationFrame(() => {
-            updateLogoPosition();
-          });
-        });
-
-        // Update on resize
-        window.addEventListener("resize", () => {
-          imageTop = firstImage.getBoundingClientRect().top + window.scrollY;
-          updateLogoPosition();
-        });
-      });
-    </script>
-
     <!-- Photography Demonstration Section -->
     <section class="photo gallery">
       <div class="photo-gallery">
-        <img src="img/esko.jpg" alt="photo 1" id="first-image" />
-        <img src="img/IMG_8326.jpg" alt="photo 2" />
-        <img src="img/IMG_4282.jpg" alt="photo 3" />
+        <img src="img/esko.jpg" alt="Ethan's photography - Portrait work" class="gallery-img" loading="lazy" />
+        <img src="img/IMG_8326.jpg" alt="Ethan's photography - Landscape work" class="gallery-img" loading="lazy" />
+        <img src="img/IMG_4282.jpg" alt="Ethan's photography - Street photography" class="gallery-img" loading="lazy" />
       </div>
     </section>
 
@@ -154,5 +60,102 @@
         #twothreesixfiveonethreefouroneninetwo
       </h1>
     </footer>
+
+    <script>
+      // Register ScrollTrigger plugin
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Heart Cursor Animation (Desktop only)
+      if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        const heartCursor = document.querySelector('.heart-cursor');
+        let mouseX = 0;
+        let mouseY = 0;
+        let cursorX = 0;
+        let cursorY = 0;
+
+        function animateCursor() {
+          const dx = mouseX - cursorX;
+          const dy = mouseY - cursorY;
+          
+          cursorX += dx * 0.15;
+          cursorY += dy * 0.15;
+          
+          heartCursor.style.left = cursorX + 'px';
+          heartCursor.style.top = cursorY + 'px';
+          
+          requestAnimationFrame(animateCursor);
+        }
+
+        document.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+        });
+
+        const interactiveElements = document.querySelectorAll('a, button, .carousel-button, .project-link, .home-link');
+        
+        interactiveElements.forEach(element => {
+          element.addEventListener('mouseenter', () => {
+            heartCursor.classList.add('hover');
+          });
+          
+          element.addEventListener('mouseleave', () => {
+            heartCursor.classList.remove('hover');
+          });
+        });
+
+        animateCursor();
+      }
+
+      // About Me scroll behavior
+      let ticking = false;
+      function updateScrollState() {
+        const aboutMe = document.querySelector(".about-me");
+        if (window.scrollY > 0) {
+          aboutMe.classList.add("scroll-show");
+        } else {
+          aboutMe.classList.remove("scroll-show");
+        }
+        ticking = false;
+      }
+
+      window.addEventListener("scroll", () => {
+        if (!ticking) {
+          requestAnimationFrame(updateScrollState);
+          ticking = true;
+        }
+      });
+
+      // GSAP animations for gallery images
+      gsap.utils.toArray('.gallery-img').forEach((img, index) => {
+        gsap.set(img, {
+          y: 50,
+          opacity: 0,
+          scale: 0.9
+        });
+
+        gsap.to(img, {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: img,
+            start: "top 80%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse"
+          }
+        });
+      });
+
+      // Handle resize events
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 250);
+      });
+    </script>
   </body>
 </html>
