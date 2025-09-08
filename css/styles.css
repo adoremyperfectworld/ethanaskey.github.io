@@ -31,7 +31,7 @@ body {
 
 .heart-cursor::before,
 .heart-cursor::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 10px;
   height: 16px;
@@ -142,7 +142,7 @@ section {
   align-items: flex-start;
   height: 100vh;
   text-align: left;
-  background: url(../img/shdw.jpg);
+  background: url(../img/IMG_9521-4.jpg);
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -443,40 +443,40 @@ footer h1 {
     height: 50vh;
     padding: 0.25rem;
   }
-  
+
   .carousel-slide img {
     max-width: 95%;
     max-height: 95%;
   }
-  
+
   .carousel-button {
     font-size: 2rem;
     padding: 0.25rem;
   }
-  
+
   .next {
     right: 0.5rem;
   }
-  
+
   .scroll-reveal-container {
     height: 40vh;
     margin: 1rem auto;
   }
-  
+
   .photo-gallery {
     gap: 0.5rem;
     padding: 0 0.25rem;
   }
-  
+
   .nav-list li {
     margin-bottom: 8px;
   }
-  
+
   .wordmark {
     bottom: 10px;
     right: 10px;
   }
-  
+
   .photos-header {
     top: 10px;
     left: 10px;
@@ -489,26 +489,26 @@ footer h1 {
     height: 60vh;
     padding: 0.5rem;
   }
-  
+
   .carousel-slide img {
     max-width: 90%;
     max-height: 90%;
   }
-  
+
   .carousel-button {
     font-size: 3rem;
     padding: 0.5rem;
   }
-  
+
   .next {
     right: 1rem;
   }
-  
+
   .scroll-reveal-container {
     height: 60vh;
     margin: 2rem auto;
   }
-  
+
   .photo-gallery {
     gap: 0.75rem;
     padding: 0 0.5rem;
@@ -521,26 +521,26 @@ footer h1 {
     height: 70vh;
     padding: 0.75rem;
   }
-  
+
   .carousel-slide img {
     max-width: 85%;
     max-height: 85%;
   }
-  
+
   .carousel-button {
     font-size: 4rem;
     padding: 0.75rem;
   }
-  
+
   .next {
     right: 1.5rem;
   }
-  
+
   .scroll-reveal-container {
     height: 70vh;
     margin: 3rem auto;
   }
-  
+
   .photo-gallery {
     gap: 1rem;
     padding: 0 0.75rem;
@@ -553,26 +553,26 @@ footer h1 {
     height: 80vh;
     padding: 1rem;
   }
-  
+
   .carousel-slide img {
     max-width: 80%;
     max-height: 80%;
   }
-  
+
   .carousel-button {
     font-size: 5rem;
     padding: 1rem;
   }
-  
+
   .next {
     right: 2rem;
   }
-  
+
   .scroll-reveal-container {
     height: 80vh;
     margin: 5rem auto;
   }
-  
+
   .photo-gallery {
     gap: 1rem;
     padding: 0 1rem;
@@ -585,17 +585,17 @@ footer h1 {
     height: auto;
     min-height: 100vh;
   }
-  
+
   .carousel-container {
     height: auto;
     min-height: 100vh;
   }
-  
+
   .scroll-reveal-container {
     height: auto;
     min-height: 100vh;
   }
-  
+
   .compositions-container {
     min-height: auto;
   }
@@ -617,7 +617,7 @@ footer h1 {
     font-size: clamp(2.5rem, 8vw, 4rem);
     padding: clamp(0.5rem, 2vw, 1rem);
   }
-  
+
   .project-link,
   .home-link,
   .nav-list a {
@@ -627,11 +627,11 @@ footer h1 {
     align-items: center;
     justify-content: center;
   }
-  
+
   .heart-cursor {
     display: none; /* Hide custom cursor on touch devices */
   }
-  
+
   body {
     cursor: auto; /* Show default cursor on touch devices */
   }
@@ -645,12 +645,12 @@ footer h1 {
   .photos-header {
     display: none;
   }
-  
+
   body {
     background: white;
     color: black;
   }
-  
+
   .hero {
     background: none;
     color: black;
@@ -687,7 +687,6 @@ footer h1 {
   }
 }
 
-
 /* Previous carousel button */
 .prev {
   left: clamp(0.5rem, 2vw, 2rem);
@@ -703,7 +702,7 @@ footer h1 {
   .prev {
     left: 0.5rem;
   }
-  
+
   .next {
     right: 0.5rem;
   }
@@ -713,7 +712,7 @@ footer h1 {
   .prev {
     left: 1rem;
   }
-  
+
   .next {
     right: 1rem;
   }
@@ -723,7 +722,7 @@ footer h1 {
   .prev {
     left: 1.5rem;
   }
-  
+
   .next {
     right: 1.5rem;
   }
@@ -733,7 +732,7 @@ footer h1 {
   .prev {
     left: 2rem;
   }
-  
+
   .next {
     right: 2rem;
   }
@@ -751,7 +750,6 @@ footer h1 {
     justify-content: center;
   }
 }
-
 
 /* Project Instructions */
 .project-instructions {
@@ -798,4 +796,3 @@ footer h1 {
     margin-top: 0.3rem;
   }
 }
-
